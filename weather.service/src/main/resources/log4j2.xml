@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c:%L - %m%n"/>
+        </Console>
+        <NoSql name="MongoDbAppender">
+            <MongoDb4 connection="mongodb://root:Qwerty1!@localhost:27017/admin.log4j" />
+        </NoSql>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO" additivity="true">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="MongoDbAppender" />
+        </Root>
+<!--    If you need custom logs for specific class or package you can set up it like this.
+        Please take into account that attribute name should reflect related package/class name.-->
+<!--    <Logger name="com.weather.service" level="WARN">-->
+<!--        <AppenderRef ref="MongoDbAppender" />-->
+<!--    </Logger>-->
+    </Loggers>
+</Configuration>
