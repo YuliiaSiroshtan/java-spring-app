@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.1.2</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com</groupId>
+    <artifactId>parent.root</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>parent.root</name>
+    <description>Root project</description>
+    <properties>
+        <!--Dependencies versions-->
+        <java.version>20</java.version>
+        <spring.boot.version>3.1.2</spring.boot.version>
+        <snakeyaml.version>2.1</snakeyaml.version>
+        <open.api.version>2.1.0</open.api.version>
+        <grpc.version>1.56.1</grpc.version>
+        <grpc.testing.version>1.57.1</grpc.testing.version>
+        <javax.annotation.version>1.3.2</javax.annotation.version>
+        <model.mapper.version>3.1.1</model.mapper.version>
+        <junit.jupiter.version>5.10.0</junit.jupiter.version>
+        <spring.test.version>6.0.11</spring.test.version>
+        <spring.boot.grpc.version>2.14.0.RELEASE</spring.boot.grpc.version>
+        <postgres.version>42.6.0</postgres.version>
+        <testcontainers.version>1.18.3</testcontainers.version>
+        <mongo.version>42.6.0</mongo.version>
+        <!--Plugins versions-->
+        <os.plugin.version>1.7.1</os.plugin.version>
+        <protobuf.plugin.version>0.6.1</protobuf.plugin.version>
+        <flyway.plugin.version>9.21.1</flyway.plugin.version>
+    </properties>
+    <modules>
+        <module>api.gateway</module>
+        <module>weather.service</module>
+        <module>security.service</module>
+    </modules>
+    <profiles>
+        <profile>
+            <id>local</id>
+        </profile>
+        <profile>
+            <id>dev</id>
+        </profile>
+        <profile>
+            <id>prod</id>
+        </profile>
+    </profiles>
+</project>

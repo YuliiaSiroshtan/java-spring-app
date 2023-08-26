@@ -1,0 +1,47 @@
+syntax = "proto3";
+import "google/protobuf/wrappers.proto";
+option java_multiple_files = true;
+package com.weather.service;
+
+message WeatherByIdRequest {
+  int64 id = 1;
+}
+
+message PageWeatherRequest {
+  int32 size = 1;
+  int32 page = 2;
+}
+
+message FullWeatherRequest {
+  int64 id = 1;
+  int32 degrees = 2;
+  google.protobuf.StringValue cloudiness = 3;
+  google.protobuf.StringValue pressure = 4;
+}
+
+message WeatherByDateRequest {
+  int32 day = 1;
+  int32 month = 2;
+  int32 year = 3;
+}
+
+message WeatherResponse {
+  int64 id = 1;
+  int32 degrees = 2;
+  google.protobuf.StringValue cloudiness = 3;
+  google.protobuf.StringValue pressure = 4;
+}
+
+message WeatherBooleanResponse {
+  bool result = 1;
+}
+
+service WeatherService {
+  rpc getPage(PageWeatherRequest) returns (stream WeatherResponse);
+  rpc getOne(WeatherByIdRequest) returns (WeatherResponse);
+  rpc find(FullWeatherRequest) returns (stream WeatherResponse);
+  rpc save(FullWeatherRequest) returns (WeatherResponse);
+  rpc update(FullWeatherRequest) returns (WeatherResponse);
+  rpc delete(WeatherByIdRequest) returns (WeatherBooleanResponse);
+  rpc weatherByDate(WeatherByDateRequest) returns (WeatherResponse);
+}
