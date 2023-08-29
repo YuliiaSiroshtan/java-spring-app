@@ -1,0 +1,45 @@
+version: '4'
+
+services:
+  postgres:
+    image: postgres:${POSTGRES_VERSION}
+    environment:
+      - POSTGRES_DB=wether
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+  flyway:
+    image: flyway/flyway
+    command: -url=jdbc:postgresql://postgres/wether -schemas=public -user=postgres -password=postgres migrate
+    volumes:
+      - ./weather.service/src/main/resources/db/migration:/flyway/sql
+    restart: on-failure
+    depends_on:
+      - postgres
+  mongo:
+    image: mongo:${MONGO_VERSION}
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+  api-gateway:
+    env_file:
+      - ./.env
+    build:
+      context: .
+      dockerfile: ./api.gateway/Dockerfile
+    ports:
+      - 8080:8080
+  weather-service:
+    env_file:
+      - ./.env
+    build:
+      context: .
+      dockerfile: ./weather.service/Dockerfile
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo
+      - postgres

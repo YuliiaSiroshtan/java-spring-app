@@ -5,12 +5,6 @@ import org.modelmapper.protobuf.ProtobufModule;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-/**
- * Gateway service application main class
- *
- * @author Dmytro Kruhlov
- */
 @SpringBootApplication
 public class ApiGatewayApplication {
 
