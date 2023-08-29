@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="api.gateway tests" type="JUnit" factoryName="JUnit">
+    <module name="api.gateway" />
+    <extension name="coverage" sample_coverage="false" track_test_folders="true">
+      <pattern>
+        <option name="PATTERN" value="com.weather.service.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="PACKAGE_NAME" value="com.api.gateway" />
+    <option name="MAIN_CLASS_NAME" value="" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="package" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
