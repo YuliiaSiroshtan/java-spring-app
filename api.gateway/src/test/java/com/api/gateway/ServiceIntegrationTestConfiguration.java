@@ -8,11 +8,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ImportAutoConfiguration({
-        GrpcServerAutoConfiguration.class, // Create required server beans
-        GrpcServerFactoryAutoConfiguration.class, // Select server implementation
+        GrpcServerAutoConfiguration.class,
+        GrpcServerFactoryAutoConfiguration.class,
         GrpcClientAutoConfiguration.class,
-        GrpcStarterApplicationTests.class
+        ApiGatewayApplication.class
 })
-public class ServiceIntegrationTestConfiguration {
-
-}
+public class ServiceIntegrationTestConfiguration { }

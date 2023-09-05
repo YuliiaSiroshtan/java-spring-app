@@ -1,19 +1,29 @@
-version: '4'
+version: '3.8'
 
 services:
   postgres:
     image: postgres:${POSTGRES_VERSION}
+    volumes:
+      - ./init-multi-postgres-databases.sh:/docker-entrypoint-initdb.d/init-multi-postgres-databases.sh
     environment:
-      - POSTGRES_DB=wether
+      - POSTGRES_MULTIPLE_DATABASES=weather:postgres,userdb:postgres
       - POSTGRES_USERNAME=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
       - "5432:5432"
-  flyway:
+  flyway-weather:
     image: flyway/flyway
-    command: -url=jdbc:postgresql://postgres/wether -schemas=public -user=postgres -password=postgres migrate
+    command: -url=jdbc:postgresql://postgres/weather -schemas=public -user=postgres -password=postgres migrate
     volumes:
       - ./weather.service/src/main/resources/db/migration:/flyway/sql
+    restart: on-failure
+    depends_on:
+      - postgres
+  flyway-security:
+    image: flyway/flyway
+    command: -url=jdbc:postgresql://postgres/userdb -schemas=public -user=postgres -password=postgres migrate
+    volumes:
+      - ./security.service/src/main/resources/db/migration:/flyway/sql
     restart: on-failure
     depends_on:
       - postgres
@@ -24,6 +34,22 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
+  vault:
+    container_name: vault
+    image: hashicorp/vault:latest
+    volumes:
+      - ./vault/config:/vault/config
+      - ./vault/policies:/vault/policies
+      - ./vault/data:/vault/data
+    ports:
+      - "8200:8200"
+    environment:
+      - VAULT_ADDR=http://0.0.0.0:8200
+      - VAULT_API_ADDR=http://0.0.0.0:8200
+      - VAULT_ADDRESS=http://0.0.0.0:8200
+    cap_add:
+      - IPC_LOCK
+    command: vault server -config=/vault/config/vault.json
   api-gateway:
     env_file:
       - ./.env
@@ -31,15 +57,26 @@ services:
       context: .
       dockerfile: ./api.gateway/Dockerfile
     ports:
-      - 8080:8080
+      - "8080:8080"
+    depends_on:
+      - vault
+  security-service:
+    env_file:
+      - ./.env
+    build:
+      context: .
+      dockerfile: ./security.service/Dockerfile
+    ports:
+      - "8084:8084"
+    depends_on:
+      - vault
   weather-service:
+    container_name: ${WEATHER_SERVICE_CONTAINER_NAME}
     env_file:
       - ./.env
     build:
       context: .
       dockerfile: ./weather.service/Dockerfile
-    ports:
-      - 8081:8081
     depends_on:
       - mongo
       - postgres

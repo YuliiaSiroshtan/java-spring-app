@@ -1,18 +1,34 @@
 package com.security.service.service;
 
-import com.security.service.model.User;
-import com.security.service.model.UserScopes;
+import com.security.service.model.entity.User;
+import com.security.service.repository.UserRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
-
 @Service
 public class UserService implements UserDetailsService {
+
+    private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
+
+    @Autowired
+    public UserService(UserRepository userRepository, ModelMapper modelMapper) {
+        this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return new User(1L, "test", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6", Set.of(new UserScopes()));
+        return userRepository.findByUsername(username).orElseThrow();
+    }
+
+    public void save(UserDetails user){
+        var userDb = this.modelMapper.map(user, User.class);
+        this.userRepository.save(userDb);
     }
 }
+
