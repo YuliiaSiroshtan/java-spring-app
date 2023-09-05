@@ -1,4 +1,4 @@
-# Java-project template
+# Java spring app
 
 This is a multi-module project based on Java, Maven, and Spring Boot. The project is designed to be run using Docker Compose. The `docker-compose.yaml` file is located in the root directory alongside the parent `pom.xml`, where dependency versions for the entire project are defined. Maven profiles are specified using the `.env` file.
 
@@ -15,7 +15,7 @@ Before you begin, ensure you have met the following requirements:
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://git.dotnet.itechcraft.com/RnD/project-template-java.git
+   git clone
 
 2. Navigate to the root directory of the project:
     

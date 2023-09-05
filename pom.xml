@@ -18,6 +18,7 @@
         <!--Dependencies versions-->
         <java.version>20</java.version>
         <spring.boot.version>3.1.2</spring.boot.version>
+        <spring.security.test.version>6.1.2</spring.security.test.version>
         <snakeyaml.version>2.1</snakeyaml.version>
         <open.api.version>2.1.0</open.api.version>
         <grpc.version>1.56.1</grpc.version>
@@ -30,6 +31,12 @@
         <postgres.version>42.6.0</postgres.version>
         <testcontainers.version>1.18.3</testcontainers.version>
         <mongo.version>42.6.0</mongo.version>
+        <jjwt.version>0.11.5</jjwt.version>
+        <swagger.annotations.jakarta.version>2.2.9</swagger.annotations.jakarta.version>
+        <postgresql.version>42.6.0</postgresql.version>
+        <log4j.version>2.20.0</log4j.version>
+        <jakarta.annotation.version>2.1.1</jakarta.annotation.version>
+        <org.springframework.vault>3.0.4</org.springframework.vault>
         <!--Plugins versions-->
         <os.plugin.version>1.7.1</os.plugin.version>
         <protobuf.plugin.version>0.6.1</protobuf.plugin.version>
@@ -39,6 +46,7 @@
         <module>api.gateway</module>
         <module>weather.service</module>
         <module>security.service</module>
+        <module>vault.module</module>
     </modules>
     <profiles>
         <profile>

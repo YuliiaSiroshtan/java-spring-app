@@ -11,6 +11,5 @@ CREATE TABLE IF NOT EXISTS public.weather
     degrees integer NOT NULL,
     cloudiness character varying COLLATE pg_catalog."default",
     pressure character varying COLLATE pg_catalog."default"
-    )
-
-    TABLESPACE pg_default;
+)
+TABLESPACE pg_default;

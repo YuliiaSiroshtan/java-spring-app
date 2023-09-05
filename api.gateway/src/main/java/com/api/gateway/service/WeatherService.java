@@ -5,6 +5,7 @@ import com.google.protobuf.StringValue;
 import com.api.gateway.model.WeatherApiMessage;
 import com.api.gateway.model.WeatherServiceProperties;
 import com.weather.service.*;
+import lombok.Setter;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import java.util.Iterator;
 public class WeatherService extends BaseService<WeatherApiMessage> {
     private final ModelMapper modelMapper;
 
-    @GrpcClient("weatherService")
+    @Setter
     private WeatherServiceGrpc.WeatherServiceBlockingStub stub;
 
     @PostConstruct
