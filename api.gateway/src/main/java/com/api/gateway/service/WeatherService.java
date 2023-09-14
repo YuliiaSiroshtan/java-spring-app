@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.Iterator;
+import java.util.List;
 
 @Service
 public class WeatherService extends BaseService<WeatherApiMessage> {
@@ -46,15 +47,17 @@ public class WeatherService extends BaseService<WeatherApiMessage> {
     }
 
     public Iterator<WeatherApiMessage> getAll(int size, int page) {
-        Iterator<WeatherResponse> response = stub.getPage(PageWeatherRequest.newBuilder()
-                .setSize(size)
-                .setPage(page)
-                .build());
+//        Iterator<WeatherResponse> response = stub.getPage(PageWeatherRequest.newBuilder()
+//                .setSize(size)
+//                .setPage(page)
+//                .build());
+//
+//        return Lists.newArrayList(response)
+//                .stream()
+//                .map(item -> modelMapper.map(item, WeatherApiMessage.class))
+//                .iterator();
 
-        return Lists.newArrayList(response)
-                .stream()
-                .map(item -> modelMapper.map(item, WeatherApiMessage.class))
-                .iterator();
+        return List.of(new WeatherApiMessage()).listIterator();
     }
 
     public WeatherApiMessage getOne(Integer id) {
